@@ -1,0 +1,166 @@
+body {
+ background-color: #ececec;
+}
+p{
+    margin: 0;
+}
+nav{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    top: 0;
+    position: fixed;
+}
+.navbar{
+    background-color: white;
+    padding: 1.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    height: 2rem;
+    box-sizing: content-box;
+    align-items: center;
+}
+.navbar__logo img,
+.navbar__icon img  {
+    height: 2rem;
+}
+.gradient{
+    background-image: linear-gradient(to bottom, #ffffff, #ffffff00);
+    height: 5rem;
+}
+
+main{
+    z-index: 0;
+}
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.divBox{
+    height: 7rem;
+    width: 100%;
+}
+.article{
+    background-color: #ffffff;
+    width: 92%;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+}
+.article.open{
+    padding: 1.5rem 1rem 2rem;
+    border-radius: 3px;
+}
+.article.closed{
+    padding: 1rem 1rem 0rem;
+    border-radius: 13px;
+}
+.article__data,
+.article__titleANDsummary,
+.article__content,
+.article__link{
+    width: 100%;
+}
+.article__data{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    
+}
+.article.open .article__data{
+    margin-bottom: 1rem;
+}
+.article.closed .article__data{
+    margin-bottom: 0.5rem;
+}
+.article.open .article__data > .dateANDauthor{
+    font-size: inherit;
+}
+.article.closed .article__data > .dateANDauthor{
+    font-size: 0rem;
+}
+.article__data .origin{
+    display: flex;
+    align-items: center;
+}
+.article__data .origin img{
+    height: 20px;
+    width: 20px;
+    margin-right: 0.5rem;
+}
+
+
+.article__titleANDsummary{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+.article__title{
+    width: 90%;
+    margin-top: 0;
+}
+.article.open .article__title{
+    margin-bottom: 0.5rem;
+}
+.article.closed .article__title{
+    margin-bottom: 0rem;
+}
+.article__summary{
+    color:#7a7a7a;
+    margin: 0;
+    font-weight: bold;
+    width: 90%;
+}
+.article.open .article__summary{
+    font-size: 1.1rem;
+}
+.article.closed .article__summary{
+    font-size: 0rem;
+}
+
+
+.content{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.article.open .content{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+.article.closed .content{
+    font-size: 0rem;
+    margin-bottom: 0rem;
+}
+
+
+.article__link{
+    color: mediumturquoise;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: underline;
+    font-style: italic;
+    text-decoration-color: mediumturquoise;
+    transition: all;
+}
+.article.open .article__link{
+    height: fit-content;
+}
+
+.article.open .article__link> a{
+    font-size: 0.8rem;
+}
+.article.closed .article__link{
+    height: 0px;
+}
+
+.article.closed .article__link> a{
+    font-size: 0rem;
+}

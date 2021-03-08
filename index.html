@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extracto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <nav>
+            <div class="navbar">
+                <div class="navbar__logo">
+                    <img src="img/logoExtracto.svg" alt="Extracto">
+                </div>
+                <div class="navbar__icon">
+                    <img src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
+                </div>
+            </div>
+            <div class="gradient"></div>
+        </nav>
+        <main>
+            <section>
+                <div class="divBox"></div>
+                <div v-for="(article, index) in articles" :key="index"><!-- :class="{open : article.isOpen === true, closed: article.isOpen === false}" -->
+                    <article class="article" >
+                        <section class="article__data">
+                            <div class="origin">
+                                <img :src=" './img/icons/' + article.origen + '.png' " alt="Icono de {{article.origen}}">
+                                <p>{{article.origen}}</p>
+                            </div>
+                            <div class="dateANDauthor">
+                                <p>Francisco Bautista - {{article.date_and_or_author[0]}}</p>
+                            </div>
+                        </section>
+                        <section class="article__titleANDsummary">
+                            <h2 class="article__title">{{article.title[0]}}</h2>
+                            <h3 class="article__summary">{{article.summary[0]}}</h3>
+                        </section>
+                        <section class="article__containerContent">
+                            <p class="content">{{article.content}}</p>
+                        </section>
+                        <footer class="article__link">
+                            <a target="_blank" :href="article.link">{{article.link}}</a>
+                        </footer>
+                    </article>
+                </div>
+                <button v-on:click="testing">Testing</button>
+            </section>
+        </main>
+    </div>
+    
+    
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const {createApp} = Vue
+        const app = createApp({
+            data(){
+                return{
+                    article: [],
+                }
+            },
+            mounted (){
+                api = './osfeSintesis.json'
+                fetch(api)
+                    .then(res => res.json())
+                    .then(json => json.forEach(x=>this.article.push(x.article)))
+            },
+            methods: {
+                testing(){
+                    console.log('-----------------')
+                    console.log(this.article[0].origen)
+                },
+                traerData(){
+                    api = './osfeSintesis.json'
+                    let listado = []
+                    fetch(api)
+                        .then(res => res.json())
+                        .then(json => json.forEach(x=>listado.push(x.article)))
+                    
+                    return listado
+                }
+            }
+        })
+
+        app.mount("#app")
+    </script>
+</body>
+</html>
