@@ -25,28 +25,8 @@
             <section>
                 <div class="divBox"></div>
                 <div class="divBox"></div>
-                <div v-for="(article, index) in articles" :key="index" class="article_container"><!-- :class="{open : article.isOpen === true, closed: article.isOpen === false}" -->
-                    <article class="article closed" >
-                        <section class="article__data">
-                            <div class="origin">
-                                <img :src=" './img/icons/' + article.origen + '.png' " alt="Icono de {{article.origen}}">
-                                <p>{{article.origen}}</p>
-                            </div>
-                            <div class="dateANDauthor">
-                                <p>{{article.date_and_or_author[0]}}</p>
-                            </div>
-                        </section>
-                        <section class="article__titleANDsummary">
-                            <h2 class="article__title">{{article.title[0]}}</h2>
-                            <h3 class="article__summary">{{ article.summary ? article.summary[0]: ''}}</h3>
-                        </section>
-                        <section class="article__containerContent">
-                            <div class="content">{{article.content}}</div>
-                        </section>
-                        <footer class="article__link">
-                            <a target="_blank" :href="article.link">{{article.link}}</a>
-                        </footer>
-                    </article>
+                <div v-for="(paper, index) in papers" :key="index" class="article_container">
+                    <papers :paper='paper' :id="index"></papers>
                 </div>
             </section>
         </main>
@@ -56,11 +36,11 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script>
         
-        const {createApp, ref, onMounted} = Vue
+        const {createApp, ref, onMounted, watch} = Vue
 
         const app = createApp({
             setup(){
-                const articles = ref([]);
+                const papers = ref([]);
                 const loading = ref(true);
                 const error = ref(null);
 
@@ -94,7 +74,7 @@
                             el.content = a
                         } )
 
-                        articles.value = list;
+                        papers.value = list;
                     })
                     .catch(err => {
                         error.value = err;
@@ -112,6 +92,8 @@
                     );
                 }
 
+                
+
 
                 onMounted( ()=>{
                     fetchData()
@@ -119,13 +101,15 @@
 
 
                 return {
-                    articles,
+                    papers,
                     loading,
                     error
                 };
             }
         });
-
+    </script>
+    <script src="./Papers.js"></script>
+    <script>
         app.mount("#app")
     </script>
 </body>
