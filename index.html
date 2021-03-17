@@ -25,15 +25,15 @@
             <section>
                 <div class="divBox"></div>
                 <div class="divBox"></div>
-                <div v-for="(article, index) in articles" :key="index"><!-- :class="{open : article.isOpen === true, closed: article.isOpen === false}" -->
-                    <article class="article" >
+                <div v-for="(article, index) in articles" :key="index" class="article_container"><!-- :class="{open : article.isOpen === true, closed: article.isOpen === false}" -->
+                    <article class="article closed" >
                         <section class="article__data">
                             <div class="origin">
                                 <img :src=" './img/icons/' + article.origen + '.png' " alt="Icono de {{article.origen}}">
                                 <p>{{article.origen}}</p>
                             </div>
                             <div class="dateANDauthor">
-                                <p>Francisco Bautista - {{article.date_and_or_author[0]}}</p>
+                                <p>{{article.date_and_or_author[0]}}</p>
                             </div>
                         </section>
                         <section class="article__titleANDsummary">
@@ -41,14 +41,13 @@
                             <h3 class="article__summary">{{ article.summary ? article.summary[0]: ''}}</h3>
                         </section>
                         <section class="article__containerContent">
-                            <p class="content">{{article.content}}</p>
+                            <div class="content">{{article.content}}</div>
                         </section>
                         <footer class="article__link">
                             <a target="_blank" :href="article.link">{{article.link}}</a>
                         </footer>
                     </article>
                 </div>
-                <button v-on:click="testing">Testing</button>
             </section>
         </main>
     </div>
@@ -64,10 +63,9 @@
                 const articles = ref([]);
                 const loading = ref(true);
                 const error = ref(null);
-                let listado = [];
-
 
                 function fetchData() {
+                    let listado = [];
                     loading.value = true;
                     return fetch('./osfeSintesis.json')
                     .then(res => {
@@ -78,23 +76,26 @@
                             error.json = res.json();
                             throw error;
                         }
-                        console.log('+++++++++++++++++++++')
-                        console.log(res.json)
                         return res.json();
                     })
                     .then(json => {
                         // set the response data
-
                         json.forEach(el => listado.push(el.article))
-                        console.log('????????????????')
-                        console.log(a = listado)
-                        console.log('--------------------------------')
-                        articles.value = listado;
-                        console.log(b = articles.value)
-                        console.log('_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-')
-                        console.log(articles.value)
+                        return listado;
+                    })
+                    .then( list => {
                         
-                        })
+                        list.forEach( el => {
+                            a = ''
+                            el.content.forEach(e => {
+                                a = a.concat(' ', e)
+                            })
+
+                            el.content = a
+                        } )
+
+                        articles.value = list;
+                    })
                     .catch(err => {
                         error.value = err;
                         // In case a custom JSON error response was provided
@@ -109,12 +110,6 @@
                         loading.value = false;
                         }
                     );
-                }
-
-
-                function testing(){
-                    console.log('-----------------')
-                    console.log(articles)
                 }
 
 
@@ -126,66 +121,10 @@
                 return {
                     articles,
                     loading,
-                    error,
-
-                    testing
+                    error
                 };
             }
         });
-
-        /* const app = createApp({
-            data(){
-                return{
-                    articles: listado
-                }
-            },
-            methods: {
-                testing(){
-                    console.log('-----------------')
-                    console.log(this.article[0].origen)
-                },
-            },
-            computed:{
-                fetchData() {
-                    loading.value = true;
-                    return fetch('./osfeSintesis.json', {
-                        method: 'get',
-                        headers: {
-                            'content-type': 'application/json'
-                        }
-                    })
-                    .then(res => {
-                        // a non-200 response code
-                        if (!res.ok) {
-                            // create error instance with HTTP status text
-                            const error = new Error(res.statusText);
-                            error.json = res.json();
-                            throw error;
-                        }
-
-                        return res.json();
-                    })
-                    .then(json => {
-                        // set the response data
-                        data.value = json.data;
-                        })
-                    .catch(err => {
-                        error.value = err;
-                        // In case a custom JSON error response was provided
-                        if (err.json) {
-                            return err.json.then(json => {
-                            // set the JSON response message
-                            error.value.message = json.message;
-                            });
-                        }
-                    })
-                    .then(() => {
-                        loading.value = false;
-                        }
-                    );
-                }
-            }
-        }) */
 
         app.mount("#app")
     </script>
