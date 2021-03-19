@@ -7,7 +7,7 @@ app.component('papers',{
                     <p>{{paper.origen}}</p>
                 </div>
                 <div class="dateANDauthor">
-                    <p>{{paper.date_and_or_author[0]}}</p>
+                    <p v-for="data in paper.date_and_or_author">{{data}}</p>
                 </div>
             </section>
             <section class="article__titleANDsummary">
@@ -29,9 +29,7 @@ app.component('papers',{
         const isOpen = ref(false)
 
         function toggleOpenOrClose(){
-            console.log(this.isOpen)
             isOpen.value = !isOpen.value
-            console.log(this.isOpen)
         }        
 
         return {
