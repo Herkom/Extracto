@@ -2,12 +2,17 @@ app.component('papers',{
     template: `
         <article class="article" :class="isOpen ? 'open' : 'closed'">
             <section class="article__data">
-                <div class="origin">
-                    <img :src=" './img/icons/' + paper.origen + '.png' " alt="Icono de {{paper.origen}}">
-                    <p>{{paper.origen}}</p>
+                <div class="dataContainer">
+                    <div class="origin">
+                        <img :src=" './img/icons/' + paper.origen + '.png' " alt="Icono de {{paper.origen}}">
+                        <p>{{paper.origen}}</p>
+                    </div>
+                    <div class="dateANDauthor">
+                        <p v-for="data in paper.date_and_or_author">{{data}}</p>
+                    </div>
                 </div>
-                <div class="dateANDauthor">
-                    <p v-for="data in paper.date_and_or_author">{{data}}</p>
+                <div class="icon">
+                    <img src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
                 </div>
             </section>
             <section class="article__titleANDsummary">

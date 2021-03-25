@@ -24,9 +24,7 @@ nav{
 .navbar__logo img  {
     height: 2rem;
 }
-.navbar__icon img  {
-    height: 1.5rem;
-}
+
 .gradient{
     background-image: linear-gradient(to bottom, #ffffff, #ffffff00);
     height: 5rem;
@@ -74,6 +72,12 @@ section{
 }
 .article__data{
     display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.dataContainer{
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items:flex-start;
@@ -83,44 +87,56 @@ section{
     font-size: 0.9rem;
     transition: margin-bottom 0.3s ease;
 }
-.article.open .article__data{
+.article.open .dataContainer{
     margin-bottom: 0.8rem;
 }
-.article.closed .article__data{
-    margin-bottom: 0.6rem;
+.article.closed .dataContainer{
+    margin-bottom: 0rem;
 }
-.article.open .article__data > .dateANDauthor{
+.article.open .dataContainer > .dateANDauthor{
     transition: font-size 0.3s ease;
     transition: margin 0.5s ease;
 }
-.article.open .article__data > .dateANDauthor{
+.article.open .dataContainer > .dateANDauthor{
     font-size: inherit;
     margin-left: calc(20px + 0.5rem);
 }
-.article.closed .article__data > .dateANDauthor{
+.article.closed .dataContainer > .dateANDauthor{
     font-size: 0rem;
     margin-left: 0;
 }
-.article.open .article__data > .dateANDauthor > p{
+.article.open .dataContainer > .dateANDauthor > p{
     margin-bottom: 0.5rem;
 }
-.article.closed .article__data > .dateANDauthor > p{
+.article.closed .dataContainer > .dateANDauthor > p{
     margin-bottom: 0;
 }
-.article__data .origin{
+.dataContainer .origin{
     display: flex;
     align-items: center;
+    margin-bottom: 0.5rem;
 }
-.article__data .origin img{
+.dataContainer .origin img{
     height: 20px;
     width: 20px;
     margin-right: 0.5rem;
 }
-.article.open > .article__data .origin{
+.article.open > .dataContainer .origin{
     margin-bottom: 0.5rem;
 }
-.article.closed > .article__data .origin{
+.article.closed > .dataContainer .origin{
     margin-bottom: 0;
+}
+.article__data .icon{
+    transition: all 0.3s ease;
+}
+.article.open > .article__data .icon{
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.article.closed > .article__data .icon{
+    height: 0;
+    width: 0;
 }
 
 
