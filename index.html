@@ -10,24 +10,10 @@
 </head>
 <body>
     <div id="app">
-        <nav>
-            <div class="navbar">
-                <div class="navbar__logo">
-                    <img src="img/logoExtracto.svg" alt="Extracto">
-                </div>
-                <div class="navbar__icon">
-                    <img src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
-                </div>
-            </div>
-            <div class="gradient"></div>
-        </nav>
+        <navbar></navbar>
         <main>
-            <section>
-                <div class="divBox"></div>
-                <div v-for="(paper, index) in papers" :key="index" class="article_container">
-                    <papers :paper='paper' :id="index"></papers>
-                </div>
-            </section>
+            <wordfilter v-show="visible" :list="list"></wordfilter>
+            <newsfeed v-show="!visible"></newsfeed>
         </main>
     </div>
     
@@ -35,79 +21,33 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script>
         
-        const {createApp, ref, onMounted, watch} = Vue
-
+        const {createApp, ref, onMounted, watch, provide, inject} = Vue
         const app = createApp({
             setup(){
-                const papers = ref([]);
-                const loading = ref(true);
-                const error = ref(null);
+                const list = ref(['esto', 'eso', 'aquello']);
+                const visible = ref(false);
 
-                function fetchData() {
-                    let listado = [];
-                    loading.value = true;
-                    return fetch('./osfeSintesis.json')
-                    .then(res => {
-                        // a non-200 response code
-                        if (!res.ok) {
-                            // create error instance with HTTP status text
-                            const error = new Error(res.statusText);
-                            error.json = res.json();
-                            throw error;
-                        }
-                        return res.json();
-                    })
-                    .then(json => {
-                        // set the response data
-                        json.forEach(el => listado.push(el.article))
-                        return listado;
-                    })
-                    .then( list => {
-                        
-                        list.forEach( el => {
-                            a = ''
-                            el.content.forEach(e => {
-                                a = a.concat(' ', e)
-                            })
-
-                            el.content = a
-                        } )
-
-                        papers.value = list;
-                    })
-                    .catch(err => {
-                        error.value = err;
-                        // In case a custom JSON error response was provided
-                        if (err.json) {
-                            return err.json.then(json => {
-                            // set the JSON response message
-                            error.value.message = json.message;
-                            });
-                        }
-                    })
-                    .then(() => {
-                        loading.value = false;
-                        }
-                    );
+                const goToFeed = () => {
+                    visible.value = !visible.value
+                    console.log(visible.value)
                 }
 
-                
-
-
-                onMounted( ()=>{
-                    fetchData()
-                })
-
+                provide('visible', visible)
+                provide('goToFeed', goToFeed)
 
                 return {
-                    papers,
-                    loading,
-                    error
+                    list,
+                    visible
                 };
             }
         });
+
     </script>
+    <script src="./NavBar.js"></script>
+    <script src="./WordFilter.js"></script>
+    <script src="./NewsFeed.js"></script>
     <script src="./Papers.js"></script>
+    
     <script>
         app.mount("#app")
     </script>

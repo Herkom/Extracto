@@ -84,19 +84,28 @@ section{
     transition: margin-bottom 0.3s ease;
 }
 .article.open .article__data{
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.8rem;
 }
 .article.closed .article__data{
     margin-bottom: 0.6rem;
 }
 .article.open .article__data > .dateANDauthor{
     transition: font-size 0.3s ease;
+    transition: margin 0.5s ease;
 }
 .article.open .article__data > .dateANDauthor{
     font-size: inherit;
+    margin-left: calc(20px + 0.5rem);
 }
 .article.closed .article__data > .dateANDauthor{
     font-size: 0rem;
+    margin-left: 0;
+}
+.article.open .article__data > .dateANDauthor > p{
+    margin-bottom: 0.5rem;
+}
+.article.closed .article__data > .dateANDauthor > p{
+    margin-bottom: 0;
 }
 .article__data .origin{
     display: flex;
@@ -106,6 +115,12 @@ section{
     height: 20px;
     width: 20px;
     margin-right: 0.5rem;
+}
+.article.open > .article__data .origin{
+    margin-bottom: 0.5rem;
+}
+.article.closed > .article__data .origin{
+    margin-bottom: 0;
 }
 
 
