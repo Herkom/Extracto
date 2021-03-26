@@ -11,10 +11,10 @@ app.component('papers',{
                         <p v-for="data in paper.date_and_or_author">{{data}}</p>
                     </div>
                 </div>
-                <div class="icon">
-                    <img src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
-                </div>
             </section>
+            <div class="icon">
+                <img v-on:click="toggleOpenOrClose" src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
+            </div>
             <section class="article__titleANDsummary">
                 <h2 class="article__title" v-on:click="toggleOpenOrClose">{{paper.title[0]}}</h2>
                 <h3 class="article__summary">{{ paper.summary ? paper.summary[0]: ''}}</h3>

@@ -54,6 +54,8 @@ section{
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
     box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
     transition: border-radius 0.3s ease;
 }
 .article.open{
@@ -75,6 +77,7 @@ section{
     justify-content: space-between;
     flex-direction: row;
     align-items: flex-start;
+    width: 90%;
 }
 .dataContainer{
     display: flex;
@@ -127,14 +130,20 @@ section{
 .article.closed > .dataContainer .origin{
     margin-bottom: 0;
 }
-.article__data .icon{
+.icon{
+    position: sticky;
+    top: 11rem;
     transition: all 0.3s ease;
 }
-.article.open > .article__data .icon{
+.navbar__icon{
     height: 1.5rem;
     width: 1.5rem;
 }
-.article.closed > .article__data .icon{
+.article.open > .icon{
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.article.closed > .icon{
     height: 0;
     width: 0;
 }
