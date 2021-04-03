@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Extracto</title>
+    <link rel="icon" href="./img/icons/favicon.png">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,21 +21,40 @@
     
     
     <script src="https://unpkg.com/vue@next"></script>
+    <script src="wordsList.js"></script>
     <script>
-        
+        let listed = list
         const {createApp, ref, onMounted, watch, provide, inject} = Vue
         const app = createApp({
             setup(){
-                const list = ref(['esto', 'eso', 'aquello']);
-                const visible = ref(false);
 
+                //List of words to filter
+                const list = ref(listed);
+
+                //"Router" between the News feed and the Word filter
+                const visible = ref(false);
                 const goToFeed = () => {
                     visible.value = !visible.value
                     console.log(visible.value)
                 }
 
+                //API call to run the spider
+                const makeScraping = () => {
+                    fetch('https://app.scrapinghub.com/api/run.json?apikey=5fed10557a124004a04939eb55ef0719',
+                        {
+                            body: "project=515196&spider=osfeSintesis",
+                            headers: { "Content-Type":"application/x-www-form-urlencoded" },
+                            method:'POST'
+                        })
+                    .then((res)=>res.json())
+                    .then((data) => console.log(data))
+                    .catch((err)=>console.log(err))
+                }
+
+
                 provide('visible', visible)
                 provide('goToFeed', goToFeed)
+                provide('makeScraping', makeScraping)
 
                 return {
                     list,

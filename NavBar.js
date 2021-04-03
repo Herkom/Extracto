@@ -6,7 +6,7 @@ app.component('navbar',{
                     <img src="img/logoExtracto.svg" alt="Extracto">
                 </div>
                 <div v-on:click="updateGoToFeed" class="navbar__icon">
-                    <img src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
+                    <img src="img/icons/filter.svg" alt="Icono de apertura o cierre de notas">
                 </div>
             </div>
             <div class="gradient"></div>

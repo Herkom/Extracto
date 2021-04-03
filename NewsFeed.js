@@ -15,7 +15,7 @@ app.component('newsfeed',{
         function fetchData() {
             let listado = [];
             loading.value = true;
-            return fetch('./osfeSintesis.json')
+            return fetch('https://storage.scrapinghub.com/items/515196/1/2?format=json&apikey=5fed10557a124004a04939eb55ef0719')
             .then(res => {
                 // a non-200 response code
                 if (!res.ok) {

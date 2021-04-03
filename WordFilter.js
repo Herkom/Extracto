@@ -1,9 +1,9 @@
 app.component('wordfilter',{
     template:`
-        <section>
+        <section class="words">
             <div class="divBox"></div>
             <h1>Listado de palabras filtradas</h1>
-            <ul>
+            <ul class="word_container">
                 <li v-for="item in list">
                     <button>{{item}}</button>
                 </li>
