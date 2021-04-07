@@ -15,7 +15,7 @@
         <navbar></navbar>
         <main>
             <wordfilter v-show="visible" :list="list"></wordfilter>
-            <newsfeed v-show="!visible"></newsfeed>
+            <newsfeed v-show="!visible" :job="job"></newsfeed>
         </main>
     </div>
     
@@ -23,13 +23,16 @@
     <script src="https://unpkg.com/vue@next"></script>
     <script src="wordsList.js"></script>
     <script>
-        let listed = list
+        let wordsListed = wordlist;
+        
         const {createApp, ref, onMounted, watch, provide, inject} = Vue
         const app = createApp({
             setup(){
+                
+                const job = ref(null);
 
                 //List of words to filter
-                const list = ref(listed);
+                const list = ref(wordsListed);
 
                 //"Router" between the News feed and the Word filter
                 const visible = ref(false);
@@ -47,10 +50,9 @@
                             method:'POST'
                         })
                     .then((res)=>res.json())
-                    .then((data) => console.log(data))
+                    .then((data) => job = data.jobid)
                     .catch((err)=>console.log(err))
                 }
-
 
                 provide('visible', visible)
                 provide('goToFeed', goToFeed)
@@ -58,13 +60,16 @@
 
                 return {
                     list,
-                    visible
+                    job,
+                    visible,
                 };
+
             }
         });
 
     </script>
     <script src="./NavBar.js"></script>
+    <script src="./newSkeleton.js"></script>
     <script src="./WordFilter.js"></script>
     <script src="./NewsFeed.js"></script>
     <script src="./Papers.js"></script>

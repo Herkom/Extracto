@@ -8,19 +8,25 @@ app.component('wordfilter',{
                     <button>{{item}}</button>
                 </li>
             </ul>
-            
             <h3 v-on:click="updateGoToFeed" >Regresar</h3>
         </section>
     `,
+
+    /* <div v-on:click="updateFeed" >
+        <p>Actualizar</p>
+    </div> */
+
     props: ['list'],
     setup(){
 
         const isVisible = inject('visible');
         const updateGoToFeed = inject('goToFeed');
+        const updateFeed = inject('makeScraping');
 
         return {
             isVisible,
-            updateGoToFeed
+            updateGoToFeed,
+            updateFeed
         }
     }
 })

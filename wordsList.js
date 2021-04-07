@@ -1,4 +1,4 @@
-let list = [
+let wordlist = [
     "osfe",
     "osf",
     "OSFE",
