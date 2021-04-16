@@ -17,10 +17,19 @@ app.component('newsfeed',{
         const loading = ref(true);
         const error = ref(null);
 
-        function fetchData() {
+        async function getMostRecentJob(){
+            const query = await db.collection("Jobs").orderBy("jobNumber","desc").limit(1).get();
+            const snapshot = query.docs[0];
+            const data = snapshot.data();
+            console.log(data.jobNumber);
+            return number = data.jobNumber;
+        }
+
+        async function fetchData() {
+            const wichJobNumber = await getMostRecentJob();
             let listado = [];
             loading.value = true;
-            return fetch(`https://storage.scrapinghub.com/items/515196/1/3?format=json&apikey=5fed10557a124004a04939eb55ef0719`)
+            return fetch(`https://storage.scrapinghub.com/items/${wichJobNumber}?format=json&apikey=5fed10557a124004a04939eb55ef0719`)
             .then(res => {
                 // a non-200 response code
                 if (!res.ok) {

@@ -19,10 +19,31 @@
         </main>
     </div>
     
-    
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+<!--     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+ -->    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBV84s3OeUpkmF-4_wLGXHWsTT2j50D9vM",
+            authDomain: "extracto-2eb04.firebaseapp.com",
+            projectId: "extracto-2eb04",
+            storageBucket: "extracto-2eb04.appspot.com",
+            messagingSenderId: "1009622175893",
+            appId: "1:1009622175893:web:57f28e53c0930c48df8b9c"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
     <script src="https://unpkg.com/vue@next"></script>
     <script src="wordsList.js"></script>
     <script>
+        let db = firebase.firestore();
         let wordsListed = wordlist;
         
         const {createApp, ref, onMounted, watch, provide, inject} = Vue
