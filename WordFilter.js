@@ -21,12 +21,10 @@ app.component('wordfilter',{
 
         const isVisible = inject('visible');
         const updateGoToFeed = inject('goToFeed');
-        const updateFeed = inject('makeScraping');
 
         return {
             isVisible,
             updateGoToFeed,
-            updateFeed
         }
     }
 })
