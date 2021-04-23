@@ -18,7 +18,7 @@ app.component('newsfeed',{
         const error = ref(null);
 
         async function getMostRecentJob(){
-            const query = await db.collection("Jobs").orderBy("jobNumber","desc").limit(1).get();
+            const query = await db.collection("Jobs").orderBy("timestamp", "desc").limit(1).get();
             const snapshot = query.docs[0];
             const data = snapshot.data();
             console.log(data.jobNumber);
