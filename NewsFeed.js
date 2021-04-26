@@ -11,10 +11,12 @@ app.component('newsfeed',{
             
         </section>
     `,
+    props: ['listOfWords'],
     setup(){
         const papers = ref([]);
         const loading = ref(true);
         const error = ref(null);
+        const wordList = inject('wordList');
 
         async function getMostRecentJob(){
             const query = await db.collection("Jobs").orderBy("timestamp", "desc").limit(1).get();
@@ -55,7 +57,34 @@ app.component('newsfeed',{
                     el.content = a
                 } )
 
-                papers.value = list;
+                console.log('La concatenacion de la lista terminó');
+
+                let filteredList = [];
+                let words = [];
+                wordList.value.forEach(x => words.push(x));
+
+                //buscamos en cada elemento de la lista
+                searchInElements: for (element of list){
+                    //buscamos en el CONTENIDO del elemento
+                    
+                    for (word of words){
+                        let regex = new RegExp(` ${word} `);
+                        let finded;
+
+                        element.content ? finded = element.content.search(regex) : finded = -1;
+
+                        if(finded != -1){
+                            console.log(word);
+                            console.log(element.title[0]);
+                            filteredList.push(element)
+                            continue searchInElements
+                        }
+                    }
+                }
+
+                console.log('Terminamos de buscar')
+       
+                papers.value = filteredList;
             })
             .catch(err => {
                 error.value = err;

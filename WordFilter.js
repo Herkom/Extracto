@@ -16,7 +16,7 @@ app.component('wordfilter',{
         <p>Actualizar</p>
     </div> */
 
-    props: ['list'],
+    props: ['listOfWords'],
     setup(){
 
         const isVisible = inject('visible');
