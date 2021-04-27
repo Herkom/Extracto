@@ -1,0 +1,14 @@
+TODO:
+
+	No hemos podido traer nada de XEVA.
+	Revisar el titulo de las columnas de Diario Presente.
+	Boton de abrir o cerrar que devuelva a dónde estabamos.
+	Rumbo Nuevo, paginas que solo tienen video NO desplegarlas.(Posibilidad de que si no tienen content no se despliegan).
+
+
+	Guardar la cantidad de palabras que aparecen por nota y de ahí ponderar las notas.
+	Habilitar agregar y borrar palabras.
+
+
+	Evaluar los nuevos horarios para lanzar la araña.
+	Cambiar a traer varias arañas.
