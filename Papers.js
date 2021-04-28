@@ -1,6 +1,6 @@
 app.component('papers',{
     template: `
-        <article class="article" :class="isOpen ? 'open' : 'closed'">
+        <article class="article" :class="isOpen ? 'open' : 'closed'" :id=id>
             <section class="article__data">
                 <div class="dataContainer">
                     <div class="origin">
@@ -13,7 +13,9 @@ app.component('papers',{
                 </div>
             </section>
             <div class="icon">
-                <img v-on:click="toggleOpenOrClose" src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
+                <a :href="'#' + id" >
+                    <img v-on:click="toggleOpenOrClose" src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
+                </a>
             </div>
             <section class="article__titleANDsummary">
                 <h2 class="article__title" v-on:click="toggleOpenOrClose">{{paper.title[0]}}</h2>
