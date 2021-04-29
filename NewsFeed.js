@@ -11,7 +11,6 @@ app.component('newsfeed',{
             
         </section>
     `,
-    props: ['listOfWords'],
     setup(){
         const papers = ref([]);
         const loading = ref(true);
