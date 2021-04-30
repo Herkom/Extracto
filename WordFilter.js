@@ -26,7 +26,9 @@ app.component('wordfilter',{
 
         const wordToBeAdded = ref('');
 
-        const addWordToList = (e) => {
+        const wordToBeRemoved = ()=>{};
+
+        const addWordToList = () => {
             wordList.value.push(wordToBeAdded.value);
             wordToBeAdded.value = '';
         }

@@ -155,4 +155,8 @@ let wordlist = [
     "(PREPET)",
     "(SCJN)",
     "distribuidor",
+    "órganos autónomos",
+    "INAI",
+    "(INAI)",
+    "cuidadania"
 ];
