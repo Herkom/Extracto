@@ -80,6 +80,9 @@ section{
     font-family: sans-serif;
     letter-spacing: 0.9px;
 }
+.word_container .toBeAdded button{
+    background: green;
+}
 .article{
     background-color: #ffffff;
     width: 92%;

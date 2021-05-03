@@ -44,8 +44,34 @@
     <script src="wordsList.js"></script>
     <script>
         let db = firebase.firestore();
-        let wordsListed = wordlist;
-        
+        let wordsListed = [];
+
+        function noVisited(){
+            wordlist.forEach((x,index) => {
+                localStorage.setItem(`extract_${x}_`, x)
+            })
+
+            for(var i = 0; i < localStorage.length; i++){
+                wordsListed.push(localStorage.getItem(localStorage.key(i)));
+            }
+
+            console.log('noVisited')
+        }
+
+        function alreadyVisited(){
+            for(var i = 0; i < localStorage.length; i++){
+                wordsListed.push(localStorage.getItem(localStorage.key(i)));
+            }
+
+            console.log('alreadyVisited')
+        }
+
+        if (localStorage.length != 0){
+            alreadyVisited();
+        } else {
+            noVisited();
+        }
+
         const {createApp, ref, onMounted, watch, provide, inject} = Vue
         const app = createApp({
             setup(){
@@ -55,16 +81,49 @@
 
                 //"Router" between the News feed and the Word filter
                 const visible = ref(false);
+                const papers = ref([]);
                 const goToFeed = () => {
                     visible.value = !visible.value
                 }
+
+                const filterByWordList = (listToFilter) => {
+                    let filteredList = [];
+                    let words = [];
+                    listOfWords.value.forEach(x => words.push(x));
+
+                    //buscamos en cada elemento de la lista
+                    searchInElements: for (element of listToFilter){
+                        //buscamos en el CONTENIDO del elemento
+                            
+                        for (word of words){
+                            let regex = new RegExp(` ${word} `);
+                            let finded;
+
+                            element.content ? finded = element.content.search(regex) : finded = -1;
+
+                            if(finded != -1){
+                                console.log(word);
+                                console.log(element.title[0]);
+                                filteredList.push(element)
+                                continue searchInElements
+                            }
+                        }
+                    }
+
+                    return filteredList
+                }
+
+                provide('papers', papers)
                 provide('wordList', listOfWords)
                 provide('visible', visible)
                 provide('goToFeed', goToFeed)
+                provide('filterByWordList', filterByWordList)
 
                 return {
                     listOfWords,
                     visible,
+                    papers,
+                    filterByWordList,
                 };
 
             }

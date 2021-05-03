@@ -12,10 +12,11 @@ app.component('newsfeed',{
         </section>
     `,
     setup(){
-        const papers = ref([]);
+        
         const loading = ref(true);
         const error = ref(null);
-        const wordList = inject('wordList');
+        const papers = inject('papers');
+        const filter = inject('filterByWordList');
 
         async function getMostRecentJobs(){
             let numbers = [];
@@ -30,32 +31,6 @@ app.component('newsfeed',{
             return numbers;
         }
 
-        function FilterByWordList(listToFilter){
-            let filteredList = [];
-            let words = [];
-            wordList.value.forEach(x => words.push(x));
-
-            //buscamos en cada elemento de la lista
-            searchInElements: for (element of listToFilter){
-                //buscamos en el CONTENIDO del elemento
-                    
-                for (word of words){
-                    let regex = new RegExp(` ${word} `);
-                    let finded;
-
-                    element.content ? finded = element.content.search(regex) : finded = -1;
-
-                    if(finded != -1){
-                        // console.log(word);
-                        // console.log(element.title[0]);
-                        filteredList.push(element)
-                        continue searchInElements
-                    }
-                }
-            }
-
-            return filteredList
-        }
 
         async function fetchData(job){
 
@@ -99,20 +74,31 @@ app.component('newsfeed',{
             })
         }
 
-        async function getAllNews() {
-            const wichJobNumber = await getMostRecentJobs();
+        async function fetchFromScrapyCloud(wichJobNumber){
             let listado = [];
-            loading.value = true;
-            
+
             for (job of wichJobNumber){
                 console.log(job);
                 let response = await fetchData(job)
                 listado = listado.concat(response);
             }
 
+            return listado;
+        }
+
+        async function getAllNews() {
+
+            //fetch job numbers from Firebase
+            const wichJobNumber = await getMostRecentJobs();
+
+            loading.value = true;
+
+            //fetch the news from each job from ScrapyCloud and store them in an array            
+            const listado = await fetchFromScrapyCloud(wichJobNumber);
+
             console.log(listado);
 
-            let filteredList = FilterByWordList(listado);
+            const filteredList = await filter(listado);
 
             console.log(filteredList.length)
        
@@ -128,7 +114,8 @@ app.component('newsfeed',{
         return {
             papers,
             loading,
-            error
+            error,
+            filter,
         };
     }
 
