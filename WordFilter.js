@@ -23,13 +23,19 @@ app.component('wordfilter',{
     `,
     setup(){
         const wordList = inject('wordList');
-        const isVisible = inject('visible');
+        const visible = inject('visible');
+
+        const rawArticles = inject('rawArticles');
+        const papers = inject('papers');
+        const loading = inject('loading');
+
+        const wordTobeAddedToTheList = inject('wordTobeAddedToTheList')
+        const listOfWordsToBeAdded = inject('listOfWordsToBeAdded');
+        
         const updateGoToFeed = inject('goToFeed');
         const filter = inject('filterByWordList');
-        const papers = inject('papers');
+        
 
-        const wordTobeAddedToTheList = ref('')
-        const listOfWordsToBeAdded = ref([]);
 
         let listOfWordsToBeRemoved = [];
 
@@ -50,7 +56,7 @@ app.component('wordfilter',{
             wordTobeAddedToTheList.value = '';
         }
 
-        const apply = () => {
+        const apply = async () => {
 
             for(item of listOfWordsToBeAdded.value){
                localStorage.setItem(`extract_${item}_`, item);
@@ -67,23 +73,33 @@ app.component('wordfilter',{
             for(var i = 0; i < localStorage.length; i++){
                 wordList.value.push(localStorage.getItem(localStorage.key(i)));
             }
+            
+            console.log('Se removieron o se añadieron a la lista')
+            console.log(wordlist.value)
 
-            const filteredList = filter(wordlist);
+            const filteredList = await filter(rawArticles.value);
+
+            console.log(papers.value)
+            console.log(filteredList)
 
             papers.value = filteredList;
+
+            console.log(papers.value)
             
             updateGoToFeed();
         }
         
         return {
-            isVisible,
-            updateGoToFeed,
             wordList,
-            filter,
+            visible,
             papers,
 
             wordTobeAddedToTheList,
             listOfWordsToBeAdded,
+
+            filter,
+            updateGoToFeed,
+            
             listOfWordsToBeRemoved,
 
             addWordToList,

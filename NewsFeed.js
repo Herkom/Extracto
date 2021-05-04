@@ -12,11 +12,13 @@ app.component('newsfeed',{
         </section>
     `,
     setup(){
-        
-        const loading = ref(true);
-        const error = ref(null);
+        const rawArticles = inject('rawArticles');
         const papers = inject('papers');
+        const loading = inject('loading');
+        const error = inject('error');
+        
         const filter = inject('filterByWordList');
+        
 
         async function getMostRecentJobs(){
             let numbers = [];
@@ -75,15 +77,15 @@ app.component('newsfeed',{
         }
 
         async function fetchFromScrapyCloud(wichJobNumber){
-            let listado = [];
-
+            let res = [];
             for (job of wichJobNumber){
                 console.log(job);
                 let response = await fetchData(job)
-                listado = listado.concat(response);
+                console.log(response);
+                res = res.concat(response)
             }
-
-            return listado;
+            rawArticles.value = res; 
+            return rawArticles;
         }
 
         async function getAllNews() {
@@ -96,9 +98,9 @@ app.component('newsfeed',{
             //fetch the news from each job from ScrapyCloud and store them in an array            
             const listado = await fetchFromScrapyCloud(wichJobNumber);
 
-            console.log(listado);
+            console.log(listado.value);
 
-            const filteredList = await filter(listado);
+            const filteredList = await filter(listado.value);
 
             console.log(filteredList.length)
        

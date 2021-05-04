@@ -46,30 +46,28 @@
         let db = firebase.firestore();
         let wordsListed = [];
 
-        function noVisited(){
-            wordlist.forEach((x,index) => {
-                localStorage.setItem(`extract_${x}_`, x)
-            })
+        function pageNoVisited(){
 
-            for(var i = 0; i < localStorage.length; i++){
-                wordsListed.push(localStorage.getItem(localStorage.key(i)));
+            for(word of wordlist){
+                localStorage.setItem(`extract_${word}_`, word)
+                wordsListed.push(word)
             }
 
-            console.log('noVisited')
+            console.log('pageNoVisited')
         }
 
-        function alreadyVisited(){
+        function pageAlreadyVisited(){
             for(var i = 0; i < localStorage.length; i++){
                 wordsListed.push(localStorage.getItem(localStorage.key(i)));
             }
 
-            console.log('alreadyVisited')
+            console.log('pageAlreadyVisited')
         }
 
         if (localStorage.length != 0){
-            alreadyVisited();
+            pageAlreadyVisited();
         } else {
-            noVisited();
+            pageNoVisited();
         }
 
         const {createApp, ref, onMounted, watch, provide, inject} = Vue
@@ -81,7 +79,17 @@
 
                 //"Router" between the News feed and the Word filter
                 const visible = ref(false);
+                const rawArticles = ref([]);
                 const papers = ref([]);
+                
+                const loading = ref(true);
+                const error = ref(null);
+
+                const wordTobeAddedToTheList = ref('')
+                const listOfWordsToBeAdded = ref([]);
+                
+                
+
                 const goToFeed = () => {
                     visible.value = !visible.value
                 }
@@ -113,9 +121,15 @@
                     return filteredList
                 }
 
-                provide('papers', papers)
                 provide('wordList', listOfWords)
                 provide('visible', visible)
+                provide('rawArticles', rawArticles)
+                provide('papers', papers)
+                provide('loading', loading)
+                provide('error', error)
+                provide('wordTobeAddedToTheList', wordTobeAddedToTheList)
+                provide('listOfWordsToBeAdded', listOfWordsToBeAdded)
+                
                 provide('goToFeed', goToFeed)
                 provide('filterByWordList', filterByWordList)
 
@@ -123,7 +137,10 @@
                     listOfWords,
                     visible,
                     papers,
-                    filterByWordList,
+                    loading,
+                    error,
+                    wordTobeAddedToTheList,
+                    listOfWordsToBeAdded,
                 };
 
             }
