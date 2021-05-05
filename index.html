@@ -14,8 +14,8 @@
     <div id="app">
         <navbar></navbar>
         <main>
-            <wordfilter v-show="visible" :listOfWords="listOfWords"></wordfilter>
-            <newsfeed v-show="!visible" :listOfWords="listOfWords"></newsfeed>
+            <wordfilter v-show="visible"></wordfilter>
+            <newsfeed v-show="!visible"></newsfeed>
         </main>
     </div>
     
@@ -95,29 +95,34 @@
                 }
 
                 const filterByWordList = (listToFilter) => {
+                    console.log('listToFilter')
+                    //console.log(listToFilter)
+
                     let filteredList = [];
-                    let words = [];
-                    listOfWords.value.forEach(x => words.push(x));
+                    //let words = [];
+                    //listOfWords.value.forEach(x => words.push(x));
 
                     //buscamos en cada elemento de la lista
                     searchInElements: for (element of listToFilter){
                         //buscamos en el CONTENIDO del elemento
-                            
-                        for (word of words){
+                        //console.log('----------------------------------------------')
+                        for (word of listOfWords.value){
                             let regex = new RegExp(` ${word} `);
                             let finded;
 
                             element.content ? finded = element.content.search(regex) : finded = -1;
 
                             if(finded != -1){
-                                console.log(word);
-                                console.log(element.title[0]);
+                                //console.log(word);
+                                // console.log(element.title[0]);
                                 filteredList.push(element)
                                 continue searchInElements
                             }
                         }
                     }
 
+                    //console.log('filteredList')
+                    //console.log(filteredList)
                     return filteredList
                 }
 

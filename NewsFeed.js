@@ -84,26 +84,22 @@ app.component('newsfeed',{
                 console.log(response);
                 res = res.concat(response)
             }
-            rawArticles.value = res; 
+            rawArticles.value = res;
+            
             return rawArticles;
         }
 
         async function getAllNews() {
+            loading.value = true;
 
             //fetch job numbers from Firebase
             const wichJobNumber = await getMostRecentJobs();
 
-            loading.value = true;
-
             //fetch the news from each job from ScrapyCloud and store them in an array            
             const listado = await fetchFromScrapyCloud(wichJobNumber);
 
-            console.log(listado.value);
-
             const filteredList = await filter(listado.value);
 
-            console.log(filteredList.length)
-       
             papers.value = filteredList;
             
             loading.value = false;
