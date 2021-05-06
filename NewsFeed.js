@@ -85,7 +85,7 @@ app.component('newsfeed',{
                 for (item of response){
                     item.rank = parseInt(job.slice(-1));
                 }
-                console.log(response);
+                //console.log(response);
                 res = res.concat(response)
             }
             rawArticles.value = res;

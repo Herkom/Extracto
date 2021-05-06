@@ -52,16 +52,16 @@
                 localStorage.setItem(`extract_${word[0]}_`, JSON.stringify(word))
                 wordsListed.push(word)
             }
-            console.log('pageNoVisited')
+           // console.log('pageNoVisited')
         }
 
         function pageAlreadyVisited(){
             for(var i = 0; i < localStorage.length; i++){
                 wordsListed.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
             }
-            console.log('wordListed')
+            /* console.log('wordListed')
             console.log(wordsListed)
-            console.log('pageAlreadyVisited')
+            console.log('pageAlreadyVisited') */
         }
 
         if (localStorage.length != 0){
@@ -95,20 +95,35 @@
                 }
 
 
-                function toRank(listToRank){
+                async function toRank(listToRank){
+                    //console.log(listToRank)
 
-                    /* for(item of listToRank){
-                        
-                    } */
+                    for(item of listToRank){
+                        //console.log(item.title)
+                        for (word of listOfWords.value){
+                            let regex = new RegExp(` ${word[0]} `);
+                            let hierarchy = word[1];
+                            let finded;
 
-                    //return rankedList
+                            item.content ? finded = item.content.search(regex) : finded = -1;
+                            
+                            if(finded != -1){
+                                item.rank = item.rank + word[1]
+                            }
+                        }
+                        //console.log(item.rank)
+                    }
+
+                    await listToRank.sort(function(a, b){return b.rank - a.rank});
+
+                    listToRank.forEach(x => console.log(x.title,x.rank))
 
                     return listToRank
                 }
 
 
                 const filterByWordList = (listToFilter) => {
-                    console.log('listToFilter')
+                    //console.log('listToFilter')
                     //console.log(listToFilter)
 
                     let filteredList = [];
@@ -126,8 +141,8 @@
                             element.content ? finded = element.content.search(regex) : finded = -1;
 
                             if(finded != -1){
-                                console.log(word[0]);
-                                console.log(element.title[0]);
+                                /* console.log(word[0]);
+                                console.log(element.title[0]); */
                                 filteredList.push(element)
                                 continue searchInElements
                             }
