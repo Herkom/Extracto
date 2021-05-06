@@ -81,6 +81,10 @@ app.component('newsfeed',{
             for (job of wichJobNumber){
                 console.log(job);
                 let response = await fetchData(job)
+
+                for (item of response){
+                    item.rank = parseInt(job.slice(-1));
+                }
                 console.log(response);
                 res = res.concat(response)
             }

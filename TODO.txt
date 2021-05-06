@@ -5,4 +5,3 @@ TODO:
 
 
 	Guardar la cantidad de palabras que aparecen por nota y de ahí ponderar las notas.
-	A las notas más recientes por default darles 2 puntos más. A la siguiente tanda 1 punto más.

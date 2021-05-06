@@ -49,18 +49,18 @@
         function pageNoVisited(){
 
             for(word of wordlist){
-                localStorage.setItem(`extract_${word}_`, word)
+                localStorage.setItem(`extract_${word[0]}_`, JSON.stringify(word))
                 wordsListed.push(word)
             }
-
             console.log('pageNoVisited')
         }
 
         function pageAlreadyVisited(){
             for(var i = 0; i < localStorage.length; i++){
-                wordsListed.push(localStorage.getItem(localStorage.key(i)));
+                wordsListed.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
             }
-
+            console.log('wordListed')
+            console.log(wordsListed)
             console.log('pageAlreadyVisited')
         }
 
@@ -94,6 +94,19 @@
                     visible.value = !visible.value
                 }
 
+
+                function toRank(listToRank){
+
+                    /* for(item of listToRank){
+                        
+                    } */
+
+                    //return rankedList
+
+                    return listToRank
+                }
+
+
                 const filterByWordList = (listToFilter) => {
                     console.log('listToFilter')
                     //console.log(listToFilter)
@@ -107,19 +120,21 @@
                         //buscamos en el CONTENIDO del elemento
                         //console.log('----------------------------------------------')
                         for (word of listOfWords.value){
-                            let regex = new RegExp(` ${word} `);
+                            let regex = new RegExp(` ${word[0]} `);
                             let finded;
 
                             element.content ? finded = element.content.search(regex) : finded = -1;
 
                             if(finded != -1){
-                                //console.log(word);
-                                // console.log(element.title[0]);
+                                console.log(word[0]);
+                                console.log(element.title[0]);
                                 filteredList.push(element)
                                 continue searchInElements
                             }
                         }
                     }
+                    
+                    filteredList = toRank(filteredList);
 
                     //console.log('filteredList')
                     //console.log(filteredList)
