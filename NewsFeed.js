@@ -83,7 +83,8 @@ app.component('newsfeed',{
                 let response = await fetchData(job)
 
                 for (item of response){
-                    item.rank = parseInt(job.slice(-1));
+                    item.rank = 0;
+                    item.batch = parseInt(job.slice(-1));
                 }
                 //console.log(response);
                 res = res.concat(response)

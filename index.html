@@ -115,8 +115,9 @@
                     }
 
                     await listToRank.sort(function(a, b){return b.rank - a.rank});
+                    await listToRank.sort(function(a, b){return b.batch - a.batch})
 
-                    listToRank.forEach(x => console.log(x.title,x.rank))
+                    listToRank.forEach(x => console.log(x.title,x.batch,x.rank))
 
                     return listToRank
                 }
