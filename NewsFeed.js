@@ -79,16 +79,17 @@ app.component('newsfeed',{
         async function fetchFromScrapyCloud(wichJobNumber){
             let res = [];
             for (job of wichJobNumber){
-                console.log(job);
+                //console.log(job);
                 let response = await fetchData(job)
 
                 for (item of response){
                     item.rank = 0;
-                    item.batch = parseInt(job.slice(-1));
+                    item.batch = parseInt(job.slice(-2));
                 }
-                //console.log(response);
+                ////.log(response);
                 res = res.concat(response)
             }
+
             rawArticles.value = res;
             
             return rawArticles;

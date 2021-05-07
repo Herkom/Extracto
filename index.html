@@ -117,24 +117,22 @@
                     await listToRank.sort(function(a, b){return b.rank - a.rank});
                     await listToRank.sort(function(a, b){return b.batch - a.batch})
 
-                    listToRank.forEach(x => console.log(x.title,x.batch,x.rank))
+                    //listToRank.forEach(x => console.log(x.title.toString(),x.batch,x.rank))
 
                     return listToRank
                 }
 
 
                 const filterByWordList = (listToFilter) => {
-                    //console.log('listToFilter')
-                    //console.log(listToFilter)
 
                     let filteredList = [];
-                    //let words = [];
-                    //listOfWords.value.forEach(x => words.push(x));
 
                     //buscamos en cada elemento de la lista
                     searchInElements: for (element of listToFilter){
                         //buscamos en el CONTENIDO del elemento
-                        //console.log('----------------------------------------------')
+
+                        //console.log(element.title)
+
                         for (word of listOfWords.value){
                             let regex = new RegExp(` ${word[0]} `);
                             let finded;
@@ -142,18 +140,36 @@
                             element.content ? finded = element.content.search(regex) : finded = -1;
 
                             if(finded != -1){
-                                /* console.log(word[0]);
-                                console.log(element.title[0]); */
                                 filteredList.push(element)
                                 continue searchInElements
                             }
                         }
                     }
-                    
-                    filteredList = toRank(filteredList);
 
-                    //console.log('filteredList')
-                    //console.log(filteredList)
+                    filteredList.forEach(item => {
+                        if(item.title[0] != undefined){
+                            item.title[0] = item.title[0].replace(/\s{2,}/g, ' ')
+                            item.title[0] = item.title[0].trim()
+                        }
+
+                        item.content = item.content.replace(/\s{2,}/g, ' ')
+                        item.content = item.content.trim()
+                    })
+
+                    let firtsFiftyCharactersOfTheArticle = filteredList.map(item => item.content);
+                    
+
+                    //console.log(filteredList.length)
+
+                    let noRepeated = filteredList.filter( ( {content}, index )=> !firtsFiftyCharactersOfTheArticle.includes( content, index + 1))
+
+                    // https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects?answertab=votes#tab-top
+
+
+                    //console.log(noRepeated.length)
+
+                    filteredList = toRank(noRepeated);
+
                     return filteredList
                 }
 
