@@ -1,5 +1,5 @@
 body {
- background-color: #d3d3d3;
+ background-color: #ececec;
 }
 p{
     margin: 0;
@@ -92,7 +92,7 @@ section{
 }
 .article{
     background-color: #ffffff;
-    width: 92%;
+    width: 90%;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
     box-sizing: border-box;
@@ -104,10 +104,10 @@ section{
     transition: border-radius 0.3s ease;
 }
 .article.open{
-    border-radius: 4px;
+    border-radius: 2px;
 }
 .article.closed{
-    border-radius: 15px;
+    border-radius: 13px;
 }
 .article__data,
 .article__titleANDsummary,
@@ -165,9 +165,9 @@ section{
     transition: margin-bottom 0.3s ease;
 }
 .dataContainer .origin img{
-    height: 20px;
-    width: 20px;
-    margin-right: 0.5rem;
+    height: 23px;
+    width: 23px;
+    margin-right: 0.6rem;
 }
 .article.open .dataContainer > .origin{
     margin-bottom: 0.5rem;
@@ -288,7 +288,7 @@ section{
 }
 .skeleton{
     background-color: #ffffff;
-    width: 92%;
+    width: 90%;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 1rem;
     box-sizing: border-box;
@@ -314,30 +314,30 @@ section{
     align-items: center;
 }
 .skeleton.icono{
-    height: 1.4rem;
-    width: 1.4rem;
+    height: 23px;
+    width: 23px;
     border-radius: 6px;
-    background: rgba(0,0,0,.2);
-    margin-right: 0.5rem;
+    background-color: #cccccc;
+    margin-right: 0.6rem;
 }
 .skeleton.source{
     height: 0.7rem;
     width: 4rem;
-    background: rgba(0,0,0,.2);
+    background-color: #cccccc;
     margin-right: 1rem;
 }
 .skeleton.linkline{
-    background: rgba(0,0,0,.2);
+    background-color: #cccccc;
     height: 0.7rem;
     margin: 0;
 }
 .skeleton.firtsline{
-    background: rgba(0,0,0,.2);
+    background-color: #cccccc;
     height: 1.7rem;
     width: 100%;
 }
 .skeleton.secondline{
-    background: rgba(0,0,0,.2);
+    background-color: #cccccc;
     height: 1.7rem;
     width: 50%;
 }
@@ -346,7 +346,7 @@ section{
 }
 .skeleton.paragraphline,
 .skeleton.lastparagraphline{
-    background: rgba(0,0,0,.2);
+    background-color: #cccccc;
     height: 1.2rem;
     width: 100%;
     margin-bottom: 8px;
