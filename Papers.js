@@ -13,8 +13,8 @@ app.component('papers',{
                 </div>
             </section>
             <div class="icon">
-                <a :href="'#' + id" >
-                    <img v-on:click="toggleOpenOrClose" src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
+                <a>
+                    <img v-on:click="toggleOpenOrClose(id)" src="img/icons/collapse_all.svg" alt="Icono de apertura o cierre de notas">
                 </a>
             </div>
             <section class="article__titleANDsummary">
@@ -25,7 +25,7 @@ app.component('papers',{
                 <div class="content">{{paper.content}}</div>
             </section>
             <footer class="article__link">
-                <a target="_blank" :href="paper.link">{{paper.link}}</a>
+                <a target="_blank" rel="noopener" rel="noreferrer" :href="paper.link">{{paper.link}}</a>
             </footer>
         </article>
     `,
@@ -33,10 +33,18 @@ app.component('papers',{
     props: ['paper', 'id'],
 
     setup(){
+
         const isOpen = ref(false)
 
-        function toggleOpenOrClose(){
+        function toggleOpenOrClose(id){
             isOpen.value = !isOpen.value
+
+            if(typeof(id) == 'number'){
+                let ele = document.getElementById(id);
+                let navBarHeight = document.getElementById('navbar').offsetHeight
+                window.scrollTo(ele.offsetLeft, ele.offsetTop - navBarHeight);
+            } 
+            
         }        
 
         return {

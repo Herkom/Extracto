@@ -1,7 +1,5 @@
 TODO:
 
 	No hemos podido traer nada de XEVA.
-	Rumbo Nuevo, paginas que solo tienen video NO desplegarlas.(Posibilidad de que si no tienen content no se despliegan).
 
-
-	Guardar la cantidad de palabras que aparecen por nota y de ahí ponderar las notas.
+	Cambiar el boton de añadir palabra a un simbolo de suma.

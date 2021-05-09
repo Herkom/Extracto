@@ -87,8 +87,6 @@
 
                 const wordTobeAddedToTheList = ref('')
                 const listOfWordsToBeAdded = ref([]);
-                
-                
 
                 const goToFeed = () => {
                     visible.value = !visible.value
@@ -126,7 +124,6 @@
                 const filterByWordList = (listToFilter) => {
 
                     let filteredList = [];
-
                     //buscamos en cada elemento de la lista
                     searchInElements: for (element of listToFilter){
                         //buscamos en el CONTENIDO del elemento

@@ -2,20 +2,20 @@ app.component('wordfilter',{
     template:`
         <section class="words">
             <div class="divBox"></div>
-            <h1>Listado de palabras filtradas</h1>
+            <h3>Listado de palabras filtradas</h3>
             
             <form>
-                <input v-model="wordTobeAddedToTheList" id="wordToAdd" type="text" name="wordToAdd" maxlength="25" minlength="3" placeholder="Palabra a agregar" required>
+                <input v-model="wordTobeAddedToTheList" id="wordToAdd" type="text" name="wordToAdd" maxlength="25" minlength="3" placeholder="Palabra a agregar" @keydown.enter.stop.prevent="stopDefaultBehavior($evt)" required>
                 <button type="button" v-on:click="addWordToList(wordTobeAddedToTheList)">Añadir palabra</button>
-                <button type="button" v-on:click="apply">Aplicar</button>
+                <button type="button" v-on:click="apply">Aplicar cambios</button>
             </form>
             
             <ul class="word_container">
                 <li v-for="item, index in listOfWordsToBeAdded" class='toBeAdded'>
-                    <button>{{item}}</button>
+                    <button>{{item[0]}}</button>
                 </li>
-                <li v-for="(item, index) in wordList" v-on:click="addWordToRemoveList(item)" :id=item>
-                    <button>{{item}}</button>
+                <li v-for="(item, index) in wordList" v-on:click="addWordToRemoveList(item)" :id=item[0]>
+                    <button>{{item[0]}}</button>
                 </li>
             </ul>
             
@@ -38,8 +38,12 @@ app.component('wordfilter',{
         let listOfWordsToBeRemoved = [];
 
         const addWordToRemoveList = (word) => {
+            console.log(word)
+            console.log(listOfWordsToBeRemoved.includes(word))
+
             if (listOfWordsToBeRemoved.includes(word)){
-                wordIndex = listOfWordsToBeRemoved.indexOf(word); 
+                wordIndex = listOfWordsToBeRemoved.indexOf(word);
+                console.log(wordIndex)
                 listOfWordsToBeRemoved.splice(wordIndex,1)
                 document.getElementById(`${word}`).firstChild.style.backgroundColor = "royalblue";
             }else{
@@ -49,7 +53,9 @@ app.component('wordfilter',{
         }
 
         const addWordToList = (word) => {
-            listOfWordsToBeAdded.value.push(word);
+            listOfWordsToBeAdded.value.push([word, 6]);
+
+            console.log(listOfWordsToBeAdded.value)
             document.getElementById("wordToAdd").value = "";
             wordTobeAddedToTheList.value = '';
         }
@@ -61,19 +67,21 @@ app.component('wordfilter',{
             updateGoToFeed();
 
             for(item of listOfWordsToBeAdded.value){
-               localStorage.setItem(`extract_${item}_`, item);
+               localStorage.setItem(`extract_${item[0]}_`, JSON.stringify(item))
             }
             listOfWordsToBeAdded.value = [];
 
             for(item of listOfWordsToBeRemoved){
-                localStorage.removeItem(`extract_${item}_`);
-                document.getElementById(`${item}`).firstChild.style.backgroundColor = "royalblue";
+                localStorage.removeItem(`extract_${item[0]}_`);
+
+                console.log(item[0])
+                document.getElementById(`${item[0]}`).firstChild.style.backgroundColor = "royalblue";
             }
             listOfWordsToBeRemoved = [];
 
             wordList.value = [];
             for(var i = 0; i < localStorage.length; i++){
-                wordList.value.push(localStorage.getItem(localStorage.key(i)));
+                wordList.value.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
             }
         
             const filteredList = await filter(rawArticles.value);
@@ -82,6 +90,9 @@ app.component('wordfilter',{
 
             loading.value = false;
 
+        }
+
+        const stopDefaultBehavior = (evt) => {
         }
         
         return {
@@ -99,7 +110,8 @@ app.component('wordfilter',{
 
             addWordToList,
             addWordToRemoveList,
-            apply
+            stopDefaultBehavior,
+            apply,
         }
     }
 })
