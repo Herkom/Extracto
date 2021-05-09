@@ -1,5 +1,3 @@
 TODO:
 
 	No hemos podido traer nada de XEVA.
-
-	Cambiar el boton de añadir palabra a un simbolo de suma.

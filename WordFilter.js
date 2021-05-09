@@ -5,9 +5,11 @@ app.component('wordfilter',{
             <h3>Listado de palabras filtradas</h3>
             
             <form>
-                <input v-model="wordTobeAddedToTheList" id="wordToAdd" type="text" name="wordToAdd" maxlength="25" minlength="3" placeholder="Palabra a agregar" @keydown.enter.stop.prevent="stopDefaultBehavior($evt)" required>
-                <button type="button" v-on:click="addWordToList(wordTobeAddedToTheList)">Añadir palabra</button>
-                <button type="button" v-on:click="apply">Aplicar cambios</button>
+                <div class="addBox">
+                    <input class="addField" v-model="wordTobeAddedToTheList" id="wordToAdd" type="text" name="wordToAdd" maxlength="25" minlength="3" placeholder="Palabra a agregar" @keydown.enter.stop.prevent="stopDefaultBehavior($evt)" required>
+                    <button class="addButton" type="button" v-on:click="addWordToList(wordTobeAddedToTheList)">+</button>
+                </div>
+                <button class="applyButton" type="button" v-on:click="apply">Aplicar cambios</button>
             </form>
             
             <ul class="word_container">
@@ -38,17 +40,13 @@ app.component('wordfilter',{
         let listOfWordsToBeRemoved = [];
 
         const addWordToRemoveList = (word) => {
-            console.log(word)
-            console.log(listOfWordsToBeRemoved.includes(word))
-
-            if (listOfWordsToBeRemoved.includes(word)){
-                wordIndex = listOfWordsToBeRemoved.indexOf(word);
-                console.log(wordIndex)
+            if (listOfWordsToBeRemoved.includes(word[0])){
+                wordIndex = listOfWordsToBeRemoved.indexOf(word[0]);
                 listOfWordsToBeRemoved.splice(wordIndex,1)
-                document.getElementById(`${word}`).firstChild.style.backgroundColor = "royalblue";
+                document.getElementById(`${word[0]}`).firstChild.style.backgroundColor = "royalblue";
             }else{
-                listOfWordsToBeRemoved.push(word);
-                document.getElementById(`${word}`).firstChild.style.backgroundColor = "#5c5bc8ad";
+                listOfWordsToBeRemoved.push(word[0]);
+                document.getElementById(`${word[0]}`).firstChild.style.backgroundColor = "#5c5bc8ad";
             }
         }
 
