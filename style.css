@@ -86,18 +86,17 @@ section{
 .words form .addBox .addButton{
     width: 25%;
     border-radius: 0px 10px 10px 0px;
-    background-color: forestgreen;
+    background-color: rgb(19, 124, 245);
     color: white;
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
 }
-
 .words form .applyButton{
     height: 3rem;
     width: 60%;
     border-radius: 10px;
-    background-color: midnightblue;
+    background-color: limegreen;
     border: none;
     color: white;
     font-size: 1.3rem;
@@ -108,23 +107,47 @@ section{
     flex-wrap: wrap;
     padding: 1rem;
     box-sizing: border-box;
+    justify-content: center;
 }
 .word_container li{
     list-style: none;
-    margin: 0.3rem 0.1rem;
-}
-.word_container li button{
-    padding: 0.5rem 0.8rem;
-    border-radius: 20px;
+    margin: 0.3rem 0.3rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 50px;
     border: none;
-    background: royalblue;
     color: white;
     font-family: sans-serif;
     letter-spacing: 0.9px;
 }
-.word_container .toBeAdded button{
+.word_container .toBeAdded{
     background: green;
 }
+.level1{
+    background-color: #70d7e8;
+}
+.level2{
+    background-color: #5fb0c8;
+}
+.level3{
+    background-color: #4e89a9;
+}
+.level4{
+    background-color: #3d6389;
+}
+.level5{
+    background-color: #2c3c6a;
+}
+.level10{
+    background-color: #7a26b3;
+}
+.level20{
+    background-color: #1b154a;
+}
+.removeWord{
+    background-color: #e3136b;
+}
+
+
 .article{
     background-color: #ffffff;
     width: 90%;

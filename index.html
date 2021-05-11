@@ -47,21 +47,20 @@
         let wordsListed = [];
 
         function pageNoVisited(){
-
             for(word of wordlist){
                 localStorage.setItem(`extract_${word[0]}_`, JSON.stringify(word))
                 wordsListed.push(word)
             }
-           // console.log('pageNoVisited')
+            console.log('page No Visited')
         }
 
         function pageAlreadyVisited(){
             for(var i = 0; i < localStorage.length; i++){
-                wordsListed.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+                 wordsListed.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
             }
-            /* console.log('wordListed')
-            console.log(wordsListed)
-            console.log('pageAlreadyVisited') */
+            wordsListed.sort(function(a, b){return b[1] - a[1]});
+
+            console.log('page Already Visited')
         }
 
         if (localStorage.length != 0){
@@ -97,7 +96,7 @@
                     //console.log(listToRank)
 
                     for(item of listToRank){
-                        //console.log(item.title)
+                        //console.log(item.title.toString())
                         for (word of listOfWords.value){
                             let regex = new RegExp(` ${word[0]} `);
                             let hierarchy = word[1];
@@ -107,6 +106,7 @@
                             
                             if(finded != -1){
                                 item.rank = item.rank + word[1]
+                                item.words.push(word)
                             }
                         }
                         //console.log(item.rank)
@@ -137,6 +137,7 @@
                             element.content ? finded = element.content.search(regex) : finded = -1;
 
                             if(finded != -1){
+                                
                                 filteredList.push(element)
                                 continue searchInElements
                             }
@@ -156,14 +157,11 @@
                     let firtsFiftyCharactersOfTheArticle = filteredList.map(item => item.content);
                     
 
-                    //console.log(filteredList.length)
+                    //
 
                     let noRepeated = filteredList.filter( ( {content}, index )=> !firtsFiftyCharactersOfTheArticle.includes( content, index + 1))
 
                     // https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects?answertab=votes#tab-top
-
-
-                    //console.log(noRepeated.length)
 
                     filteredList = toRank(noRepeated);
 

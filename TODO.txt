@@ -1,3 +1,6 @@
 TODO:
 
 	No hemos podido traer nada de XEVA.
+
+
+	Mejorar la visualización de las palabras filtradas

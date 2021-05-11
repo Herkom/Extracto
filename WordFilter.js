@@ -13,12 +13,8 @@ app.component('wordfilter',{
             </form>
             
             <ul class="word_container">
-                <li v-for="item, index in listOfWordsToBeAdded" class='toBeAdded'>
-                    <button>{{item[0]}}</button>
-                </li>
-                <li v-for="(item, index) in wordList" v-on:click="addWordToRemoveList(item)" :id=item[0]>
-                    <button>{{item[0]}}</button>
-                </li>
+                <li v-for="item, index in listOfWordsToBeAdded" class='toBeAdded'>{{item[0]}}</li>
+                <li v-for="(item, index) in wordList" v-on:click="addWordToRemoveList(item)" :class="'level'+item[1].toString()" :id=item[0]>{{item[0]}}</li>
             </ul>
             
         </section>
@@ -43,17 +39,15 @@ app.component('wordfilter',{
             if (listOfWordsToBeRemoved.includes(word[0])){
                 wordIndex = listOfWordsToBeRemoved.indexOf(word[0]);
                 listOfWordsToBeRemoved.splice(wordIndex,1)
-                document.getElementById(`${word[0]}`).firstChild.style.backgroundColor = "royalblue";
+                document.getElementById(`${word[0]}`).classList.remove("removeWord");
             }else{
                 listOfWordsToBeRemoved.push(word[0]);
-                document.getElementById(`${word[0]}`).firstChild.style.backgroundColor = "#5c5bc8ad";
+                document.getElementById(`${word[0]}`).classList.add("removeWord");
             }
         }
 
         const addWordToList = (word) => {
-            listOfWordsToBeAdded.value.push([word, 6]);
-
-            console.log(listOfWordsToBeAdded.value)
+            listOfWordsToBeAdded.value.push([word, 10]);
             document.getElementById("wordToAdd").value = "";
             wordTobeAddedToTheList.value = '';
         }
@@ -71,8 +65,6 @@ app.component('wordfilter',{
 
             for(item of listOfWordsToBeRemoved){
                 localStorage.removeItem(`extract_${item[0]}_`);
-
-                console.log(item[0])
                 document.getElementById(`${item[0]}`).firstChild.style.backgroundColor = "royalblue";
             }
             listOfWordsToBeRemoved = [];
@@ -80,6 +72,7 @@ app.component('wordfilter',{
             wordList.value = [];
             for(var i = 0; i < localStorage.length; i++){
                 wordList.value.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+                wordList.value.sort(function(a, b){return b[1] - a[1]});
             }
         
             const filteredList = await filter(rawArticles.value);

@@ -28,6 +28,7 @@ app.component('newsfeed',{
             for(doc of snapshot){
                 let data = doc.data();
                 numbers.push(data.jobNumber);
+                
             }
             
             return numbers;
@@ -35,7 +36,7 @@ app.component('newsfeed',{
 
 
         async function fetchData(job){
-
+            console.log(job)
             let lista = []
             return fetch(`https://storage.scrapinghub.com/items/${job}?format=json&apikey=5fed10557a124004a04939eb55ef0719`)
             .then(res => {
@@ -85,6 +86,7 @@ app.component('newsfeed',{
                 for (item of response){
                     item.rank = 0;
                     item.batch = parseInt(job.slice(-2));
+                    item.words = []
                 }
                 ////.log(response);
                 res = res.concat(response)
@@ -106,6 +108,10 @@ app.component('newsfeed',{
 
             const filteredList = await filter(listado.value);
 
+            for(item of filteredList){
+                console.log(item.title.toString(), item.rank, item.words)
+            }
+            
             papers.value = filteredList;
             
             loading.value = false;
