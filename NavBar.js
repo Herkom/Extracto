@@ -12,11 +12,9 @@ app.component('navbar',{
         </nav>
     `,
     setup(){
-        // const isVisible = inject('visible');
         const updateGoToFeed = inject('goToFeed');
 
         return {
-            // isVisible,
             updateGoToFeed
         }
     }

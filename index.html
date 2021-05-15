@@ -93,10 +93,8 @@
 
 
                 async function toRank(listToRank){
-                    //console.log(listToRank)
 
                     for(item of listToRank){
-                        //console.log(item.title.toString())
                         for (word of listOfWords.value){
                             let regex = new RegExp(` ${word[0]} `);
                             let hierarchy = word[1];
@@ -109,13 +107,16 @@
                                 item.words.push(word)
                             }
                         }
-                        //console.log(item.rank)
+
+                        item.origen == "Rumbo Nuevo" ? item.rank = item.rank - 7 : item.rank = item.rank
+
+                        if(item.title[0] == "Mudanzas" || item.title[0] == "Trabajo incansable por un mejor Tabasco" || item.title[0] == "Acciones y resultados"){
+                            item.rank > 30 ? item.rank = item.rank - 30 : item.rank = 25
+                        }
                     }
 
                     await listToRank.sort(function(a, b){return b.rank - a.rank});
-                    await listToRank.sort(function(a, b){return b.batch - a.batch})
-
-                    //listToRank.forEach(x => console.log(x.title.toString(),x.batch,x.rank))
+                    //await listToRank.sort(function(a, b){return b.batch - a.batch})
 
                     return listToRank
                 }
@@ -155,13 +156,8 @@
                     })
 
                     let firtsFiftyCharactersOfTheArticle = filteredList.map(item => item.content);
-                    
-
-                    //
 
                     let noRepeated = filteredList.filter( ( {content}, index )=> !firtsFiftyCharactersOfTheArticle.includes( content, index + 1))
-
-                    // https://stackoverflow.com/questions/2218999/how-to-remove-all-duplicates-from-an-array-of-objects?answertab=votes#tab-top
 
                     filteredList = toRank(noRepeated);
 

@@ -1,6 +1,17 @@
 TODO:
 
 	No hemos podido traer nada de XEVA.
+	Evaluar traer notas del periodico Ahora.
 
 
-	Mejorar la visualización de las palabras filtradas
+	Twitter
+
+	checar asincronismos en los batches de noticias
+	poner aviso de texto de cuando esta cargando
+
+	dar aviso de error cuando no existe respuesta de servidores.
+
+
+	Crear un Flag para cuando las palabras prioritarias aparezcan.
+	Mejorar animación de apertura de nota.
+	buscar como poner en la ficha en su modo cerrado la fecha del batch de donde viene
