@@ -96,8 +96,7 @@
 
                     for(item of listToRank){
                         for (word of listOfWords.value){
-                            let regex = new RegExp(` ${word[0]} `);
-                            let hierarchy = word[1];
+                            let regex = new RegExp(`(${word[0]})`, 'g');
                             let finded;
 
                             item.content ? finded = item.content.search(regex) : finded = -1;

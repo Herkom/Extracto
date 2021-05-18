@@ -1,8 +1,8 @@
 let wordlist = [
-    ["osfe", 30],
-    ["osf", 30],
-    ["OSFE", 30],
-    ["OSF", 30],
+    [" osfe", 30],
+    [" osf", 30],
+    [" OSFE", 30],
+    [" OSF", 30],
     ["(OSFE)", 30],
     ["(OSF)", 30],
     ["#OSFE", 30],
