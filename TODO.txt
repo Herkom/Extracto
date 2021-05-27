@@ -7,7 +7,7 @@ TODO:
 	Twitter
 
 	checar asincronismos en los batches de noticias
-	poner aviso de texto de cuando esta cargando
+	//poner aviso de texto de cuando esta cargando
 
 	dar aviso de error cuando no existe respuesta de servidores.
 

@@ -108,9 +108,9 @@ app.component('newsfeed',{
 
             const filteredList = await filter(listado.value);
 
-            /* for(item of filteredList){
-                console.log(item.title.toString(), item.rank, item.words)
-            } */
+            for(item of filteredList){
+                console.log(item.title.toString(), item.rank, item.words.toString())
+            }
             
             papers.value = filteredList;
             
