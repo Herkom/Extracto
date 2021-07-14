@@ -1,5 +1,6 @@
 app.component('skeleton',{
     template: `
+            <div class="skeleton-loader"></div>
             <div class='skeleton closed'>
                 <div class='skeleton data'>
                     <div class='skeleton icono'></div>

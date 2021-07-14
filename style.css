@@ -356,6 +356,37 @@ section{
     flex-direction: column;
     overflow: hidden;
 }
+
+.skeleton-loader {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    border:4px solid #0000;
+    border-radius: 50%;
+    border-right-color:#64719C;
+    animation: s5 1s infinite linear;
+    margin-bottom: 1rem;
+}
+.skeleton-loader::before,
+.skeleton-loader::after {    
+    content:"";
+    grid-area: 1/1;
+    margin:2px;
+    border:inherit;
+    border-radius: 50%;
+    border-right-color:#141B36;
+    animation: s5 2s infinite;
+}
+.skeleton-loader::after {
+    margin:8px;
+    animation-duration: 3s;
+    border-right-color:#64719C;
+}
+  
+@keyframes s5{ 
+    100%{transform: rotate(1turn)}
+}
+
 .skeleton.open{
     padding: 1.5rem 1rem 2rem;
     border-radius: 3px;
